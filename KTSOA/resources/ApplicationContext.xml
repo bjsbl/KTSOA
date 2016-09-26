@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd 
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<dubbo:annotation />
+
+	<dubbo:application name="ktsoa.user.provider" />
+
+	<dubbo:registry address="zookeeper://192.168.137.128:2181" />
+	
+	<dubbo:monitor address="192.168.137.128:8080"/>
+
+	<!-- <dubbo:protocol name="dubbo" port="20880" /> -->
+
+	<context:component-scan base-package="ktsoa">
+		<context:include-filter type="annotation"
+			expression="com.alibaba.dubbo.config.annotation.Service" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+	</context:component-scan>
+
+</beans>
